@@ -1,0 +1,60 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Ember's Adventure</title>
+    <script src="js/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(925, 410, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+var generoWorld;
+var player;
+var cursors;
+
+function preload() {
+  game.load.image('genero-world', 'assets/genero-world.png'); 
+  game.load.image('rebecca', 'assets/rebecca.png'); 
+}
+
+function create() {
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+
+  generoWorld = game.add.sprite(0, 0, 'genero-world');
+  generoWorld.scale.x = 5;
+  generoWorld.scale.y = 5;
+
+  player = game.add.sprite(32, game.world.height - 150, 'rebecca');
+  player.scale.x = 8;
+  player.scale.y = 8;
+
+  //  We need to enable physics on the player
+  game.physics.arcade.enable(player);
+
+  player.body.bounce.y = 0;
+  player.body.gravity.y = 1000;
+  player.body.collideWorldBounds = true;
+
+  //  Our controls.
+  cursors = game.input.keyboard.createCursorKeys();
+}
+
+function update() {
+  if ( cursors.up.isDown )
+    {
+        player.body.velocity.y = -500;
+    }
+}
+
+</script>
+
+</body>
+</html>
